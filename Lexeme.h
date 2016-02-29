@@ -1,5 +1,7 @@
 #pragma once
 
+// #include <cinttypes>
+
 #include <string>
 #include <vector>
 
@@ -11,15 +13,16 @@ enum Type {
 class Lexeme
 {
 public:
-	Lexeme( const std::string & name, Type type, bool isArray, uint size = 1 );
+	Lexeme( const std::string & name, Type type, bool isArray = false, size_t arrSize = 1 );
 
 	const std::string & name()		const;
 	Type				type()		const;
 	bool				isArray()	const;
 	size_t				arraySize() const;
 
-	void setInitialized( uint num = 0 );
-	bool isInitialized(  uint num = 0 ) const;
+	void setInitialized( size_t num = 0 );
+	bool initialized(	 size_t num = 0 )	const;
+	bool isArrayInitialized()				const;
 
 private:
 	std::string			_name;
@@ -27,5 +30,5 @@ private:
 	bool				_isArray;
 	std::vector<char>	_initialize;
 
-	bool isIndexCorrect( uint num ) const;
+	bool isIndexCorrect( size_t num ) const;
 };

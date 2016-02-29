@@ -1,7 +1,5 @@
 #include "ChangeableTable.h"
 
-#include <algorithm>
-
 ChangeableTable::ChangeableTable( size_t size ):
 	_TABLE_SIZE( size )
 {
@@ -14,6 +12,16 @@ ChangeableTable::ChangeableTable():
 
 }
 
+void ChangeableTable::add( const std::string & name, Type type , bool isArray, size_t arraySize )
+{
+	if ( contains( name ) )
+		return;
+
+	Lexeme lexeme( name, type, isArray, arraySize );
+	size_t hash = getHash( name );
+	addByHash( lexeme, hash );
+}
+
 void ChangeableTable::initializeLexeme( const std::string & name )
 {
 
@@ -21,8 +29,8 @@ void ChangeableTable::initializeLexeme( const std::string & name )
 
 bool ChangeableTable::contains( const std::string & name )
 {
-	size_t h = hash( name );
-	for ( auto lexeme : _table[h] ) {
+	size_t hash = getHash( name );
+	for ( auto lexeme : _table[hash] ) {
 		if ( lexeme.name() == name )
 			return true;
 	}
@@ -31,10 +39,20 @@ bool ChangeableTable::contains( const std::string & name )
 
 bool ChangeableTable::initialized( const std::string & name )
 {
+	size_t hash = getHash( name );
+	for ( auto lexeme : _table[hash] ) {
+		if ( lexeme.name() == name ) {
 
+		}
+	}
 }
 
-size_t ChangeableTable::hash( const std::string & name ) const
+void ChangeableTable::addByHash( const Lexeme & lexeme, size_t hash )
+{
+	_table[hash].push_back( lexeme );
+}
+
+size_t ChangeableTable::getHash( const std::string & name ) const
 {
 	size_t h = 0;
 	for ( auto c : name )
@@ -43,4 +61,9 @@ size_t ChangeableTable::hash( const std::string & name ) const
 	h %= _TABLE_SIZE;
 
 	return h;
+}
+
+bool ChangeableTable::contains( size_t hash )
+{
+	return _table[hash].size() > 0;
 }
