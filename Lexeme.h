@@ -13,8 +13,13 @@ class Lexeme
 public:
 	Lexeme( const std::string & name, Type type, bool isArray, uint size = 1 );
 
+	const std::string & name()		const;
+	Type				type()		const;
+	bool				isArray()	const;
+	size_t				arraySize() const;
+
 	void setInitialized( uint num = 0 );
-	bool isInitialized( uint num = 0 ) const;
+	bool isInitialized(  uint num = 0 ) const;
 
 private:
 	std::string			_name;

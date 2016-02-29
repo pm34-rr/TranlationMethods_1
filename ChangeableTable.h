@@ -4,12 +4,24 @@
 
 #include <vector>
 
+typedef std::vector<Lexeme> vl;
+
 class ChangeableTable
 {
 public:
-	ChangeableTable( uint size );
+	ChangeableTable( size_t size );
 	ChangeableTable();
 
+	void add( const std::string & name );
+	void initializeLexeme( const std::string & name );
+
+	bool contains( const std::string & name );
+	bool initialized( const std::string & name );
+
+
 private:
-	std::vector<Lexem>	_table;
+	size_t hash( const std::string & name ) const;
+
+	const size_t		_TABLE_SIZE;
+	std::vector<vl>		_table;
 };

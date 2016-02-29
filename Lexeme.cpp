@@ -11,6 +11,26 @@ Lexeme::Lexeme( const std::string & name, Type type, bool isArray, uint size ):
 	_initialize.resize( size );
 }
 
+const std::string & Lexeme::name() const
+{
+	return _name;
+}
+
+Type Lexeme::type() const
+{
+	return _type;
+}
+
+bool Lexeme::isArray() const
+{
+	return _isArray;
+}
+
+size_t Lexeme::arraySize() const
+{
+	return _initialize.size();
+}
+
 void Lexeme::setInitialized( uint num )
 {
 	if ( !isIndexCorrect( num ) )
