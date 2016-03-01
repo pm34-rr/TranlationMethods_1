@@ -1,6 +1,6 @@
 #pragma once
 
-#include <set>
+#include <vector>
 #include <string>
 
 class PermamentTable
@@ -9,8 +9,13 @@ public:
 	PermamentTable();
 
 	void add( const std::string & elem );
-	bool contains( const std::string & elem ) const;
+	void finalize();
+
+	int  find( const std::string & elem )		const;
+	bool contains( const std::string & elem )	const;
+
+	size_t size() const;
 
 private:
-	std::set<std::string> _table;
+	std::vector<std::string> _table;
 };

@@ -1,16 +1,42 @@
 #include "PermamentTable.h"
 
+#include <algorithm>
+
+using namespace std;
+
 PermamentTable::PermamentTable()
 {
 
 }
 
-void PermamentTable::add( const std::string & elem )
+void PermamentTable::add( const string & elem )
 {
-	_table.insert( elem );
+	if ( find( elem ) != -1 )
+		return;
+
+	_table.push_back( elem );
 }
 
-bool PermamentTable::contains( const std::string & elem ) const
+void PermamentTable::finalize()
 {
-	return _table.find( elem ) == _table.end();
+	sort( _table.begin(), _table.end() );
+}
+
+int PermamentTable::find( const string & elem ) const
+{
+	auto it = std::find( _table.begin(), _table.end(), elem );
+	if ( it == _table.end() )
+		return -1;
+
+	return _table.end() - it;
+}
+
+bool PermamentTable::contains( const string & elem ) const
+{
+	return std::find( _table.begin(), _table.end(), elem ) != _table.end();
+}
+
+size_t PermamentTable::size() const
+{
+	return _table.size();
 }
